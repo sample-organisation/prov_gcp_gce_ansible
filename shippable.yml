@@ -66,13 +66,13 @@ jobs:
   - name: install_nexus_on_gce
     type: runSh
     steps:
+      - IN: gcp_gce_cli
       - IN: gcp_gce_repo
         switch: off
       - IN: gcp_gce_creds
         switch: off
       - IN: gcp_gce_info
         switch: off
-      - IN: gcp_gce_cli
       - TASK:
           name: install_nexus
           runtime:
