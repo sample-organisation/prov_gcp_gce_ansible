@@ -19,6 +19,11 @@ resources:
       params:
         SEED: "initial_version"
 
+# cliConfig for google cloud
+  - name: gcp_gce_cli
+    type: cliConfig
+    integration: "drship_gcp"
+
 jobs:
 # Provision GCP GCE with Ansible
   - name: prov_gcp_gce_ans
@@ -67,6 +72,7 @@ jobs:
         switch: off
       - IN: gcp_gce_info
         switch: off
+      - IN: gcp_gce_cli
       - TASK:
           name: install_nexus
           runtime:
@@ -83,7 +89,7 @@ jobs:
             - pushd $(shipctl get_resource_state "gcp_gce_repo")/ansible
             - echo $(shipctl get_integration_resource_field gcp_gce_creds JSON_key) > $GCE_CREDENTIALS_FILE_PATH
             - shipctl replace variables.yml inventory/gce.ini
-            - gcloud compute instances list 
+            - gcloud compute instances list
             # - GCE_INI_PATH=inventory/gce.ini ansible -i inventory/gce.py us-east1-d -m shell -a "/bin/uname -a"
     flags:
       - gcp_gce
