@@ -1,0 +1,17 @@
+- name: Setup ports
+  hosts: tag_webserver
+  gather_facts: no
+  pre_tasks:
+    - include_vars: variables.yml
+  roles:
+    - name: Allow HTTP
+      local_action: gce_net
+      args:
+        fwname: "all-http"
+        name: "default"
+        allowed: "tcp:80"
+        state: "present"
+        src_tags: ["{{gce_tag_Role}}"]
+        service_account_email: "{{ GCE_EMAIL }}"
+        credentials_file: "{{ GCE_CREDENTIALS_FILE_PATH }}"
+        project_id: "{{ GCE_PROJECT }}"
