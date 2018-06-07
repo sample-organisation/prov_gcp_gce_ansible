@@ -1,6 +1,7 @@
 - name: Setup ports
-  hosts: tag_webserver
-  gather_facts: no
+  hosts: localhost
+  connection: local
+  gather_facts: false
   pre_tasks:
     - include_vars: variables.yml
   roles:
