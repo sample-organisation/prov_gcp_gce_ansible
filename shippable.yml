@@ -72,6 +72,7 @@ jobs:
       - IN: gcp_gce_creds
         switch: off
       - IN: gcp_gce_info
+        switch: off
       - TASK:
           name: install_nexus
           runtime:
