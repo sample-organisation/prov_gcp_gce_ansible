@@ -92,6 +92,7 @@ jobs:
             - gcloud compute instances list
             - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get update"
             - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get install -y docker.io"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo docker run -d -p 80:8081 --name nexus sonatype/nexus3"
             # - gcloud compute ssh dev --zone us-east1-d --command="echo hi"
             # - gcloud compute scp dev --zone us-east1-d install
             # - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get update"
