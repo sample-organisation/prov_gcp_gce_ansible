@@ -4,7 +4,8 @@
   gather_facts: false
   pre_tasks:
     - include_vars: variables.yml
-  roles:
+
+  tasks:
     - name: Allow HTTP
       local_action: gce_net
       args:
