@@ -91,13 +91,13 @@ jobs:
             - shipctl replace variables.yml inventory/gce.ini
             - gcloud compute instances list
             # - gcloud compute ssh dev --zone us-east1-d --command="echo hi"
-            - gcloud compute ssh dev --command="sudo apt-get update"
-            - gcloud compute ssh dev --command="sudo apt-get install apt-transport-https ca-certificates curl software-properties-common"
-            - gcloud compute ssh dev --command="curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
-            - gcloud compute ssh dev --command="sudo apt-key fingerprint 0EBFCD88"
-            - gcloud compute ssh dev --command="sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
-            - gcloud compute ssh dev --command="sudo apt-get update"
-            - gcloud compute ssh dev --command="sudo apt-get install docker-ce"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get update"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get install apt-transport-https ca-certificates curl software-properties-common"
+            - gcloud compute ssh dev --zone us-east1-d --command="curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-key fingerprint 0EBFCD88"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get update"
+            - gcloud compute ssh dev --zone us-east1-d --command="sudo apt-get install docker-ce"
             # - GCE_INI_PATH=inventory/gce.ini ansible -i inventory/gce.py us-east1-d -m shell -a "/bin/uname -a"
     flags:
       - gcp_gce
