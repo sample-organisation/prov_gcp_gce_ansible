@@ -19,11 +19,6 @@ resources:
       params:
         SEED: "initial_version"
 
-# cliConfig for google cloud
-  - name: gcp_gce_cli
-    type: cliConfig
-    integration: "drship_gcp"
-
 jobs:
 # Provision GCP GCE with Ansible
   - name: prov_gcp_gce_ans
