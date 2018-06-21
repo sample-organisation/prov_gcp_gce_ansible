@@ -19,16 +19,6 @@ resources:
       params:
         SEED: "initial_version"
 
-  - name: gcp_nexus_info
-    type: params
-    versionTemplate:
-      params:
-        SEED: "initial_version"
-
-  - name: gcp_gcloud_cli
-    type: cliConfig
-    integration: "drship_gcp"
-
 jobs:
 # Provision GCP GCE with Ansible
   - name: prov_gcp_gce_ans
@@ -62,42 +52,6 @@ jobs:
             - ansible-playbook -v gce_prov_playbook.yml
       - OUT: gcp_gce_info
         overwrite: true
-    flags:
-      - gcp_gce
-      - gce
-      - ansible
-
-# Install nexus on gce
-  - name: install_nexus_on_gce
-    type: runSh
-    steps:
-      - IN: gcp_gce_cli
-      - IN: gcp_gce_repo
-        switch: off
-      - IN: gcp_gce_creds
-        switch: off
-      - IN: gcp_gce_info
-        switch: off
-      - IN: gcp_nexus_info
-        switch: off
-      - TASK:
-          name: install_nexus
-          runtime:
-            options:
-              env:
-                - gce_zone: "us-east1-d"
-                - gce_name: "dev"
-                - gce_tag_Role: "demo-machines"
-                - GCE_PROJECT: "my-infrastructure-190108"
-                - GCE_EMAIL: "shippable-prod@my-infrastructure-190108.iam.gserviceaccount.com"
-                - GCE_CREDENTIALS_FILE_PATH: "gcp_key.json"
-          script:
-            - pushd $(shipctl get_resource_state "gcp_gce_repo")
-            - gcloud compute scp ./install_nexus.sh dev:~/install_nexus.sh --zone us-east1-d
-            - gcloud compute ssh dev --zone us-east1-d --command="chmod +x ~/install_nexus.sh"
-            - gcloud compute ssh dev --zone us-east1-d --command="~/install_nexus.sh"
-            - shipctl put_resource_state_multi "$STATE_RES_NAME" "NEXUS_HOST=$INST_0_PUBLIC_IP"
-            - popd
     flags:
       - gcp_gce
       - gce
