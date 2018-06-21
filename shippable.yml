@@ -25,6 +25,10 @@ resources:
       params:
         SEED: "initial_version"
 
+  - name: gcp_gcloud_cli
+    type: cliConfig
+    integration: "drship_gcp"
+
 jobs:
 # Provision GCP GCE with Ansible
   - name: prov_gcp_gce_ans
